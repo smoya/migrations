@@ -98,7 +98,7 @@ abstract class AbstractCommand extends Command
                     throw new \InvalidArgumentException('The connection file has to return an array with database configuration parameters.');
                 }
                 $conn = \Doctrine\DBAL\DriverManager::getConnection($params);
-            } else {
+            } elseif ( ! $conn = $this->getApplication()->getKernel()->getContainer()->get('doctrine')->getConnection()) {
                 throw new \InvalidArgumentException('You have to specify a --db-configuration file or pass a Database Connection as a dependency to the Migrations.');
             }
 
